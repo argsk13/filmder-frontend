@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatelessWidget {
+import '../widgets/input_field.dart';
+
+class LoginScreen extends StatefulWidget {
   const LoginScreen({
     Key? key,
     required this.title,
@@ -11,10 +13,36 @@ class LoginScreen extends StatelessWidget {
   final String title;
 
   @override
-  Widget build(BuildContext context) {
-    final TextEditingController _emailtEditingController;
-    final TextEditingController _passwordEditingController;
+  State<LoginScreen> createState() => _LoginScreenState();
+}
 
+class _LoginScreenState extends State<LoginScreen> {
+  late FocusNode userNameFocusNode;
+  late FocusNode passwordFocusNode;
+  late TextEditingController userName;
+  late TextEditingController password;
+
+  @override
+  void initState() {
+    super.initState();
+    userNameFocusNode = FocusNode();
+    passwordFocusNode = FocusNode();
+    userName = TextEditingController();
+    password = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    userNameFocusNode.dispose();
+    passwordFocusNode.dispose();
+    userName.dispose();
+    password.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -43,8 +71,22 @@ class LoginScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('email'),
-            const Text('password'),
+            InputField(
+              label: 'Username',
+              focusNode: userNameFocusNode,
+              textEditingController: userName,
+              icon: Icon(
+                Icons.supervised_user_circle,
+              ),
+            ),
+            InputField(
+              label: 'Password',
+              focusNode: passwordFocusNode,
+              textEditingController: password,
+              icon: Icon(
+                Icons.lock_open_rounded,
+              ),
+            ),
             ElevatedButton.icon(
               onPressed: () {},
               icon: const Icon(Icons.movie_filter_outlined),
