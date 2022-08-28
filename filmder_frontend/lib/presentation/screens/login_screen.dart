@@ -1,6 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'package:filmder_frontend/business_logic/bloc/auth_bloc.dart';
+import 'package:filmder_frontend/presentation/screens/overview_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../widgets/input_field.dart';
 
@@ -43,61 +46,100 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Discover, match. Filmder.',
-              style: TextStyle(
-                fontSize: 19,
+    return BlocProvider(
+      create: (context) => AuthBloc(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                widget.title,
+                style: TextStyle(
+                  fontSize: 19,
+                ),
               ),
-            ),
-            Flexible(
-              child: IconButton(
-                  splashRadius: 25,
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.movie_filter_rounded,
-                  )),
-            )
-          ],
+              Flexible(
+                child: IconButton(
+                    splashRadius: 25,
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.movie_filter_rounded,
+                    )),
+              )
+            ],
+          ),
+          elevation: 0,
+          backgroundColor: Theme.of(context).primaryColor,
         ),
-        elevation: 0,
-        backgroundColor: Theme.of(context).primaryColor,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            InputField(
-              label: 'Username',
-              focusNode: userNameFocusNode,
-              textEditingController: userName,
-              icon: Icon(
-                Icons.supervised_user_circle,
+        body: BlocConsumer<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is AuthError) {
+              buildErrorLayout(context);
+            } else if (state is AuthSucces) {
+              clearData();
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: ((context) => OverviewScreen()),
+                ),
+              );
+            }
+          },
+          builder: (context, state) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  InputField(
+                    label: 'Username',
+                    focusNode: userNameFocusNode,
+                    textEditingController: userName,
+                    icon: Icon(
+                      Icons.supervised_user_circle,
+                    ),
+                  ),
+                  InputField(
+                    label: 'Password',
+                    focusNode: passwordFocusNode,
+                    textEditingController: password,
+                    icon: Icon(
+                      Icons.lock_open_rounded,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 300,
+                    height: 50,
+                    child: ElevatedButton.icon(
+                      onPressed: () =>
+                          Navigator.of(context).pushNamed('/overview'),
+                      icon: const Icon(Icons.movie_filter_outlined),
+                      label: const Text('Log In'),
+                      style: ElevatedButton.styleFrom(
+                        primary:
+                            Theme.of(context).primaryColor.withOpacity(0.6),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            InputField(
-              label: 'Password',
-              focusNode: passwordFocusNode,
-              textEditingController: password,
-              icon: Icon(
-                Icons.lock_open_rounded,
-              ),
-            ),
-            ElevatedButton.icon(
-              onPressed: () {},
-              icon: const Icon(Icons.movie_filter_outlined),
-              label: const Text('Log In'),
-              style: ElevatedButton.styleFrom(
-                primary: Theme.of(context).primaryColor.withOpacity(0.6),
-              ),
-            ),
-          ],
+            );
+          },
         ),
       ),
     );
+  }
+
+  ScaffoldFeatureController<SnackBar, SnackBarClosedReason> buildErrorLayout(
+      BuildContext context) {
+    return ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Please enter username/password!'),
+      ),
+    );
+  }
+
+  void clearData() {
+    userName.clear();
+    password.clear();
   }
 }

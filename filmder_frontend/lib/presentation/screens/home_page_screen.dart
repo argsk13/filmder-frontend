@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Welcome to Filmder!'),
+          title: Text(title),
         ),
         body: Center(
           child: Column(
@@ -34,11 +34,7 @@ class HomePage extends StatelessWidget {
                 elevation: 4,
                 minWidth: 200,
                 height: 50,
-                onPressed: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: ((context) => LoginScreen(title: title)),
-                  ),
-                ),
+                onPressed: () => Navigator.of(context).pushNamed('/login'),
                 color: Theme.of(context).primaryColor,
                 child: const Text(
                   'Start!',
