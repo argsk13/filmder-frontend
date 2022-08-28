@@ -22,18 +22,20 @@ class InputField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
+        obscureText: label == "Password" ? true : false,
         controller: textEditingController,
         autofocus: false,
         onFieldSubmitted: (value) =>
             FocusScope.of(context).requestFocus(focusNode),
         decoration: InputDecoration(
-            enabledBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(
+            enabledBorder: OutlineInputBorder(
+              borderRadius: const BorderRadius.all(
                 Radius.circular(4),
               ),
             ),
             hintStyle: TextStyle(color: Colors.amber),
-            hintText: label),
+            hintText: label,
+            prefixIcon: icon),
       ),
     );
   }
