@@ -20,7 +20,7 @@ class FilmderApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
+        primarySwatch: Colors.deepPurple, accentColor: Colors.amber,
         // colorScheme:
       ),
       onGenerateRoute: appRouter.onGenerateRoute,

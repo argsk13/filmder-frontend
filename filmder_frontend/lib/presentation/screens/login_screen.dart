@@ -2,6 +2,7 @@
 
 import 'package:filmder_frontend/business_logic/bloc/auth_bloc.dart';
 import 'package:filmder_frontend/presentation/screens/overview_screen.dart';
+import 'package:filmder_frontend/presentation/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -107,18 +108,30 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   SizedBox(
-                    width: 300,
-                    height: 50,
-                    child: ElevatedButton.icon(
-                      onPressed: () =>
-                          Navigator.of(context).pushNamed('/overview'),
-                      icon: const Icon(Icons.movie_filter_outlined),
-                      label: const Text('Log In'),
-                      style: ElevatedButton.styleFrom(
-                        primary:
-                            Theme.of(context).primaryColor.withOpacity(0.6),
+                    child: Column(children: [
+                      ElevatedButton.icon(
+                        onPressed: () =>
+                            Navigator.of(context).pushNamed('/overview'),
+                        icon: const Icon(Icons.movie_filter_outlined),
+                        label: const Text('Log In'),
+                        style: ElevatedButton.styleFrom(
+                          primary:
+                              Theme.of(context).primaryColor.withOpacity(0.6),
+                        ),
                       ),
-                    ),
+                      SizedBox(height: 5),
+                      CustomElevatedButton(
+                          label: 'Login',
+                          startColor: Theme.of(context).accentColor,
+                          endColor: Theme.of(context).primaryColor,
+                          textColor: Colors.white),
+                      SizedBox(height: 5),
+                      CustomElevatedButton(
+                          label: 'Signup',
+                          startColor: Theme.of(context).primaryColor,
+                          endColor: Theme.of(context).accentColor,
+                          textColor: Colors.white),
+                    ]),
                   ),
                 ],
               ),
