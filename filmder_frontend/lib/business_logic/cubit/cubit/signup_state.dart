@@ -1,20 +1,39 @@
 part of 'signup_cubit.dart';
 
+enum SignupStatus { inicial, processing, succes, error }
+
 @immutable
-abstract class SignupState {}
-
-class SignupInitial extends SignupState {}
-
-class SignupLoading extends SignupState {}
-
-class SignupSucces extends SignupState {
-  final String userName;
+class SignupState extends Equatable {
+  final String email;
   final String password;
+  final SignupStatus status;
 
-  SignupSucces({
-    required this.userName,
+  SignupState({
+    required this.email,
     required this.password,
+    required this.status,
   });
-}
 
-class SignupError extends SignupState {}
+  factory SignupState.initial() {
+    return SignupState(
+      email: '',
+      password: '',
+      status: SignupStatus.inicial,
+    );
+  }
+
+  SignupState copyWith({
+    final String? email,
+    final String? password,
+    final SignupStatus? status,
+  }) {
+    return SignupState(
+        email: email ?? this.email,
+        password: password ?? this.password,
+        status: status ?? this.status);
+  }
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [email, password, status];
+}

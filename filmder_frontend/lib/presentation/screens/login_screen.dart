@@ -109,16 +109,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   SizedBox(
                     child: Column(children: [
-                      ElevatedButton.icon(
-                        onPressed: () =>
-                            Navigator.of(context).pushNamed('/overview'),
-                        icon: const Icon(Icons.movie_filter_outlined),
-                        label: const Text('Log In'),
-                        style: ElevatedButton.styleFrom(
-                          primary:
-                              Theme.of(context).primaryColor.withOpacity(0.6),
-                        ),
-                      ),
+                      // ElevatedButton.icon(
+                      //   onPressed: () =>
+                      //       Navigator.of(context).pushNamed('/overview'),
+                      //   icon: const Icon(Icons.movie_filter_outlined),
+                      //   label: const Text('Log In'),
+                      //   style: ElevatedButton.styleFrom(
+                      //     primary:
+                      //         Theme.of(context).primaryColor.withOpacity(0.6),
+                      //   ),
+                      // ),
                       SizedBox(height: 5),
                       CustomElevatedButton(
                           label: 'Login',
