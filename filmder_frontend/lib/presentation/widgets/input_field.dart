@@ -26,18 +26,18 @@ class InputField extends StatelessWidget {
         onFieldSubmitted: (value) =>
             FocusScope.of(context).requestFocus(focusNode),
         decoration: InputDecoration(
-            enabledBorder: OutlineInputBorder(
-              borderRadius: const BorderRadius.all(
+            enabledBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(
                 Radius.circular(4),
               ),
             ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.amber),
-              borderRadius: const BorderRadius.all(
+            focusedBorder: const OutlineInputBorder(
+              borderSide: const BorderSide(color: Colors.amber),
+              borderRadius: BorderRadius.all(
                 Radius.circular(4),
               ),
             ),
-            hintStyle: TextStyle(color: Colors.amber),
+            hintStyle: const TextStyle(color: Colors.amber),
             filled: true,
             hintText: label,
             prefixIcon: icon),
